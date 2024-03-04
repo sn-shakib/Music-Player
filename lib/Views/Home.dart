@@ -11,31 +11,37 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.grey.withOpacity(0.1),
+        backgroundColor: Colors.black,
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.search)),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.search,color: Colors.white,)),
         ],
-        leading: const Icon(Icons.sort_rounded),
+        leading: const Icon(Icons.sort_rounded,color: Colors.white,),
         title: const CustomText(color: Colors.redAccent, text: "Beats", fontWeight: FontWeight.w700, fontsize: 18),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemCount: 20,
             itemBuilder: (BuildContext context, int indext){
              return Container(
                decoration: BoxDecoration(
-                 borderRadius: BorderRadius.circular(12),
+                 borderRadius: BorderRadius.circular(10),
+                 color: Colors.white54,
                ),
-               child: const ListTile(
-                      title: CustomText(color: Colors.black, text: "Music Name",
+
+               margin: const EdgeInsets.only(bottom: 10),
+               child:  ListTile(
+                      title: const CustomText(color: Colors.white, text: "Music Name",
                           fontWeight: FontWeight.w700, fontsize: 15),
-                 subtitle: CustomText(color: Colors.black, text: "Artist Name",
+                 subtitle: const CustomText(color: Colors.white, text: "Artist Name",
                      fontWeight: FontWeight.w700, fontsize: 12),
-                 leading: Icon(Icons.music_note,size: 32,),
+                 leading: const Icon(Icons.music_note,size: 32,color: Colors.white,),
+                 trailing: IconButton(
+                     onPressed: (){},
+                     icon: const Icon(Icons.play_arrow,size: 30,color: Colors.white,)),
                ),
              );
         }
