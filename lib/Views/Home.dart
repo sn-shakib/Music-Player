@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:music_player_application/CustomWidget/text.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:get/get.dart';
+
+import '../Controller/PlayerController.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var controller=Get.put(PlayeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

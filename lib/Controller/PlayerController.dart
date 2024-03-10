@@ -13,14 +13,7 @@ class PlayeController extends GetxController{
   }
  checkPermision()async{
     var  permi= await Permission.storage.request();
-    if (permi.isGranted){
-      return audioQuuery.querySongs(
-        ignoreCase: true,
-        orderType: OrderType.ASC_OR_SMALLER,
-        sortType: null,
-        uriType: UriType.EXTERNAL,
-      );
-    }
+    if (permi.isGranted){}
     else {
       checkPermision();
     }
