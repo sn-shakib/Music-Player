@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 20,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int indext) {
                       return Container(
                         decoration: BoxDecoration(
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                         child: ListTile(
                           title:  CustomText(
                               color: Colors.white,
-                              text: "${snapshot.data![indext].displayNameWOExt}",
+                              text: snapshot.data![indext].displayNameWOExt,
                               fontWeight: FontWeight.w700,
                               fontsize: 15),
                           subtitle:  CustomText(
@@ -82,14 +82,16 @@ class _HomePageState extends State<HomePage> {
                               text: "${snapshot.data![indext].artist}",
                               fontWeight: FontWeight.w700,
                               fontsize: 12),
-                          leading: const Icon(
-                            Icons.music_note,
-                            size: 32,
-                            color: Colors.white,
+                          leading: QueryArtworkWidget(id: snapshot.data![indext].id, type: ArtworkType.AUDIO,
+                          nullArtworkWidget: const Icon(Icons.music_note,
+                          color: Colors.white,
+                            size: 36,
                           ),
+                          ),
+
                           trailing: IconButton(
                               onPressed: () {
-                                final player=AudioCache();
+                                controller.player(snapshot.data![indext].uri);
                               },
                               icon: const Icon(
                                 Icons.play_arrow,

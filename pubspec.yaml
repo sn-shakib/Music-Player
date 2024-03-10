@@ -39,7 +39,7 @@ dependencies:
   just_audio:
   on_audio_query:
   permission_handler:
-  audioplayers: ^5.2.1
+  audioplayers:
 
 dev_dependencies:
   flutter_test:
