@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player_application/CustomWidget/text.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -62,7 +63,9 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                   ),
                   trailing: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        final player=AudioCache();
+                      },
                       icon: const Icon(
                         Icons.play_arrow,
                         size: 30,
