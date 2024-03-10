@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player_application/CustomWidget/text.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 import '../Controller/PlayerController.dart';
 
@@ -38,47 +39,71 @@ class _HomePageState extends State<HomePage> {
             fontWeight: FontWeight.w700,
             fontsize: 18),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: 20,
-            itemBuilder: (BuildContext context, int indext) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromARGB(137, 23, 23, 23),
-                ),
-                margin: const EdgeInsets.only(bottom: 10),
-                child: ListTile(
-                  title: const CustomText(
-                      color: Colors.white,
-                      text: "Music Name",
-                      fontWeight: FontWeight.w700,
-                      fontsize: 15),
-                  subtitle: const CustomText(
-                      color: Colors.white,
-                      text: "Artist Name",
-                      fontWeight: FontWeight.w700,
-                      fontsize: 12),
-                  leading: const Icon(
-                    Icons.music_note,
-                    size: 32,
-                    color: Colors.white,
-                  ),
-                  trailing: IconButton(
-                      onPressed: () {
-                        final player=AudioCache();
-                      },
-                      icon: const Icon(
-                        Icons.play_arrow,
-                        size: 30,
-                        color: Colors.white,
-                      )),
-                ),
+      body:FutureBuilder<List<SongModel>>(
+          future: controller.audioQuuery.querySongs(
+            ignoreCase: true,
+            orderType: OrderType.ASC_OR_SMALLER,
+            sortType: null,
+            uriType: UriType.EXTERNAL,
+          ),
+          builder: (BuildContext context,snapshot){
+            if (snapshot.data == null){
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-            }),
-      ),
+            }
+            else if (snapshot.data!.isEmpty){
+              return const Center(
+                child: Text('No song Found'),
+              );
+            }
+            else {
+              print(snapshot.data);
+              return  Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 20,
+                    itemBuilder: (BuildContext context, int indext) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(137, 23, 23, 23),
+                        ),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: ListTile(
+                          title:  CustomText(
+                              color: Colors.white,
+                              text: "${snapshot.data![indext].displayNameWOExt}",
+                              fontWeight: FontWeight.w700,
+                              fontsize: 15),
+                          subtitle:  CustomText(
+                              color: Colors.white,
+                              text: "${snapshot.data![indext].artist}",
+                              fontWeight: FontWeight.w700,
+                              fontsize: 12),
+                          leading: const Icon(
+                            Icons.music_note,
+                            size: 32,
+                            color: Colors.white,
+                          ),
+                          trailing: IconButton(
+                              onPressed: () {
+                                final player=AudioCache();
+                              },
+                              icon: const Icon(
+                                Icons.play_arrow,
+                                size: 30,
+                                color: Colors.white,
+                              )),
+                        ),
+                      );
+                    }),
+              );
+            }
+
+          }
+          )
     );
   }
 }
